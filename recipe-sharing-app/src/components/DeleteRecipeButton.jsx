@@ -1,18 +1,23 @@
+
+
+// src/components/DeleteRecipeButton.jsx
+import { useNavigate } from "react-router-dom";
 import useRecipeStore from './recipeStore';
 
 const DeleteRecipeButton = ({ recipeId }) => {
   const deleteRecipe = useRecipeStore((state) => state.deleteRecipe);
+  const navigate = useNavigate();
 
   const handleDelete = () => {
-    if (window.confirm('Are you sure you want to delete this recipe?')) {
-      deleteRecipe(recipeId);
-    }
+    deleteRecipe(recipeId);
+    alert("Recipe deleted!");
+    navigate("/"); // 
   };
 
   return (
     <button
       onClick={handleDelete}
-      style={{ marginTop: '10px', background: 'red', color: 'white' }}
+      style={{ marginTop: "10px", backgroundColor: "red", color: "white" }}
     >
       Delete Recipe
     </button>
