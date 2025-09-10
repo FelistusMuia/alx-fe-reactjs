@@ -1,24 +1,23 @@
+// src/store/recipeStore.js
 import { create } from "zustand";
 
 const useRecipeStore = create((set) => ({
   recipes: [],
 
-  addRecipe: (newRecipe) =>
-    set((state) => ({ recipes: [...state.recipes, newRecipe] })),
+  addRecipe: (recipe) =>
+    set((state) => ({ recipes: [...state.recipes, recipe] })),
 
   updateRecipe: (id, updatedRecipe) =>
     set((state) => ({
-      recipes: state.recipes.map((recipe) =>
-        recipe.id === id ? { ...recipe, ...updatedRecipe } : recipe
+      recipes: state.recipes.map((r) =>
+        r.id === id ? { ...r, ...updatedRecipe } : r
       ),
     })),
 
   deleteRecipe: (id) =>
     set((state) => ({
-      recipes: state.recipes.filter((recipe) => recipe.id !== id),
+      recipes: state.recipes.filter((r) => r.id !== id),
     })),
-
-  setRecipes: (recipes) => set({ recipes }),
 }));
 
 export default useRecipeStore;
