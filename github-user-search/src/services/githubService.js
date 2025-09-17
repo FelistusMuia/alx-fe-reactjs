@@ -11,8 +11,12 @@ const api = axios.create({
   },
 });
 
-// Fetch a GitHub user by username
-export async function fetchUser(username) {
+/**
+ * Fetch GitHub user data by username
+ * @param {string} username - GitHub username to search
+ * @returns {object} - User profile data from GitHub API
+ */
+export async function fetchUserData(username) {
   try {
     const response = await api.get(`/users/${username}`);
     return response.data;
