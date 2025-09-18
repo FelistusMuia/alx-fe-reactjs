@@ -27,23 +27,27 @@ export async function fetchUserData(username) {
 }
 
 /**
- * Search GitHub users with advanced filters
- * @param {string} query - Main search term (username/keyword)
- * @param {object} filters - Optional filters (location, repos, language, etc.)
- * @returns {object} - List of users from GitHub API
+ * Advanced search for GitHub users
+ * @param {object} params - Search parameters
+ * @param {string} params.username - Username or keyword
+ * @param {string} [params.location] - Location filter
+ * @param {number} [params.minRepos] - Minimum number of repos
+ * @returns {array} - List of users from GitHub Search API
  */
-export async function searchUsers(query, filters = {}) {
+export async function searchUsers({ username, location, minRepos }) {
   try {
-    let filterString = "";
+    // build query string
+    let query = username ? `${username}` : "";
+    if (location) query += `+location:${location}`;
+    if (minRepos) query += `+repos:>${minRepos}`;
 
-    if (filters.location) filterString += `+location:${filters.location}`;
-    if (filters.repos) filterString += `+repos:${filters.repos}`;
-    if (filters.language) filterString += `+language:${filters.language}`;
+    const response = await api.get(
+      `https://api.github.com/search/users?q=${query}`
+    );
 
-    const response = await api.get(`/search/users?q=${query}${filterString}`);
-    return response.data; // contains { total_count, incomplete_results, items }
+    return response.data.items; // API returns { total_count, items: [...] }
   } catch (error) {
-    console.error("GitHub API Search Error:", error);
+    console.error("GitHub Search API Error:", error);
     throw error;
   }
 }
