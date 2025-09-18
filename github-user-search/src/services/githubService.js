@@ -25,3 +25,25 @@ export async function fetchUserData(username) {
     throw error;
   }
 }
+
+/**
+ * Search GitHub users with advanced filters
+ * @param {string} query - Main search term (username/keyword)
+ * @param {object} filters - Optional filters (location, repos, language, etc.)
+ * @returns {object} - List of users from GitHub API
+ */
+export async function searchUsers(query, filters = {}) {
+  try {
+    let filterString = "";
+
+    if (filters.location) filterString += `+location:${filters.location}`;
+    if (filters.repos) filterString += `+repos:${filters.repos}`;
+    if (filters.language) filterString += `+language:${filters.language}`;
+
+    const response = await api.get(`/search/users?q=${query}${filterString}`);
+    return response.data; // contains { total_count, incomplete_results, items }
+  } catch (error) {
+    console.error("GitHub API Search Error:", error);
+    throw error;
+  }
+}
