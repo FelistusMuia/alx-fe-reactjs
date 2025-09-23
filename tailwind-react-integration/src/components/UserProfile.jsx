@@ -7,14 +7,18 @@ function UserProfile() {
       max-w-sm md:max-w-sm sm:max-w-xs 
       mx-auto my-20 
       rounded-lg shadow-lg
+      hover:shadow-xl 
     ">
       <img 
-        className="sm:w-24 sm:h-24 md:w-36 md:h-36 rounded-full mx-auto"
+        className="
+        sm:w-24 sm:h-24 md:w-36 md:h-36 rounded-full mx-auto
+        hover:scale-110 
+        transition-transform duration-300 ease-in-out"
         src="https://via.placeholder.com/150" 
         alt="User" 
       />
 
-      <h1 className="sm:text-lg md:text-xl my-4 text-blue-800 text-center">
+      <h1 className="sm:text-lg md:text-xl my-4 text-blue-800 text-center hover:text-blue-500">
         John Doe
       </h1>
       <p className="sm:text-sm md:text-base text-gray-600 text-center">
