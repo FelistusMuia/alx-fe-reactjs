@@ -9,7 +9,7 @@ function UserProfile() {
       rounded-lg shadow-lg
     ">
       <img 
-        className="w-36 h-36 rounded-full mx-auto sm:w-24 h-24 md:w-36 h-36 "
+        className="sm:w-24 sm:h-24 md:w-36 md:h-36 rounded-full mx-auto"
         src="https://via.placeholder.com/150" 
         alt="User" 
       />
