@@ -7,7 +7,6 @@ function RecipeDetail() {
   const [recipe, setRecipe] = useState(null);
 
   useEffect(() => {
-    // find recipe by ID in the imported mock data
     const foundRecipe = data.find((item) => item.id === parseInt(id));
     setRecipe(foundRecipe);
   }, [id]);
@@ -34,28 +33,33 @@ function RecipeDetail() {
           </h1>
           <p className="text-gray-600 mb-6">{recipe.summary}</p>
 
-          {/* Example sections - you can expand your JSON to include more */}
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">
-              Ingredients
-            </h2>
-            <ul className="list-disc pl-6 text-gray-700">
-              <li>Ingredient 1</li>
-              <li>Ingredient 2</li>
-              <li>Ingredient 3</li>
-            </ul>
-          </div>
+          {/* Ingredients */}
+          {recipe.ingredients && (
+            <div className="mb-6">
+              <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                Ingredients
+              </h2>
+              <ul className="list-disc pl-6 text-gray-700 space-y-1">
+                {recipe.ingredients.map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))}
+              </ul>
+            </div>
+          )}
 
-          <div>
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">
-              Instructions
-            </h2>
-            <ol className="list-decimal pl-6 text-gray-700 space-y-2">
-              <li>Step 1</li>
-              <li>Step 2</li>
-              <li>Step 3</li>
-            </ol>
-          </div>
+          {/* Instructions */}
+          {recipe.instructions && (
+            <div>
+              <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                Instructions
+              </h2>
+              <ol className="list-decimal pl-6 text-gray-700 space-y-2">
+                {recipe.instructions.map((step, index) => (
+                  <li key={index}>{step}</li>
+                ))}
+              </ol>
+            </div>
+          )}
 
           <Link
             to="/"
