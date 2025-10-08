@@ -11,7 +11,6 @@ const fetchPosts = async () => {
 };
 
 function PostsComponent() {
-  // React Query hook
   const {
     data: posts,
     isLoading,
@@ -22,8 +21,10 @@ function PostsComponent() {
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
-    staleTime: 5000, // Data stays fresh for 5 seconds (for demo)
-    cacheTime: 1000 * 60 * 5, // Cached for 5 minutes
+    staleTime: 5000, // data stays fresh for 5 seconds
+    cacheTime: 1000 * 60 * 5, // cached for 5 minutes
+    refetchOnWindowFocus: true, // ✅ Refetch when user switches back to tab
+    keepPreviousData: true, // ✅ Keep old data while fetching new data
   });
 
   // Loading state
@@ -61,10 +62,9 @@ function PostsComponent() {
         ))}
       </ul>
 
-      {/* Info about caching */}
       <p style={{ fontStyle: "italic", marginTop: "1rem" }}>
-        Tip: Navigate away and come back — data will load instantly from cache
-        unless it's stale!
+        Tip: Navigate away or switch browser tabs — React Query will handle
+        caching and automatic refetching seamlessly.
       </p>
     </div>
   );
