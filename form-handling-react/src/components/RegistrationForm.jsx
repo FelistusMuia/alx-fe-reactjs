@@ -1,26 +1,38 @@
 import React, { useState } from "react";
 
 function RegistrationForm() {
-  // Separate states for each field
+  // Individual states
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!username || !email || !password) {
-      setError("All fields are required!");
+    // Explicit field checks as required
+    if (!username) {
+      setErrors("Username is required!");
       return;
     }
 
-    setError("");
+    if (!email) {
+      setErrors("Email is required!");
+      return;
+    }
 
-    // Simulate form submission
-    console.log("Form Submitted:", { username, email, password });
+    if (!password) {
+      setErrors("Password is required!");
+      return;
+    }
 
-    // Clear form
+    // Clear previous errors
+    setErrors("");
+
+    // Simulate API submission
+    console.log("Form submitted:", { username, email, password });
+
+    // Reset form
     setUsername("");
     setEmail("");
     setPassword("");
@@ -29,6 +41,7 @@ function RegistrationForm() {
   return (
     <div style={{ maxWidth: "400px", margin: "2rem auto" }}>
       <h2>User Registration (Controlled Components)</h2>
+
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "1rem" }}>
           <label>Username:</label>
@@ -60,7 +73,8 @@ function RegistrationForm() {
           />
         </div>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {/* Show error message */}
+        {errors && <p style={{ color: "red" }}>{errors}</p>}
 
         <button type="submit">Register</button>
       </form>
