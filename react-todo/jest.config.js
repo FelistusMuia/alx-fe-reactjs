@@ -1,7 +1,4 @@
 export default {
   testEnvironment: "jsdom",
-  transform: {
-    "^.+\\.[t|j]sx?$": "babel-jest",
-  },
-  moduleFileExtensions: ["js", "jsx"],
+  setupFilesAfterEnv: ["<rootDir>/src/setupTests.js"],
 };
